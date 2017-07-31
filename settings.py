@@ -114,7 +114,7 @@ SESSION_CONFIGS = [
      'name': 'UpdatingOnAbility',
      'display_name': 'Experiment1',
      'num_demo_participants': 10,
-     'app_sequence': ['updatingOnAbility'],
+     'app_sequence': ['updatingOnAbility_tests'],
      }
 ]
 
