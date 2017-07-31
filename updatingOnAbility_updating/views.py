@@ -4,14 +4,16 @@ from ._builtin import Page, WaitPage
 from .models import Constants
 
 
-class welcome(Page):
-	pass
+class info1(Page):
+	form_model = models.Player
+	form_fields = ['attentioncheck']
 
-class IRB(Page):
-	pass
+class info2(Page):
+	form_model = models.Player
+	form_fields = ['attentioncheck']
 
 
 page_sequence = [
-	welcome,
-	IRB,
+	info1,
+	info2,
 ]

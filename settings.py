@@ -80,19 +80,18 @@ oTree games
 # https://boto.readthedocs.org/en/latest/ref/mturk.html?highlight=mturk#module-boto.mturk.qualification
 
 mturk_hit_settings = {
-    'keywords': ['easy', 'bonus', 'choice', 'study'],
-    'title': 'Title for your experiment',
-    'description': 'Description for your experiment',
+    'keywords': ['easy', 'bonus', 'choice', 'study', 'economics', 'IQtest'],
+    'title': '75 Minutes STANFORD UNIVERSITY Economics Study on Decision Making',
+    'description': 'We are conducting an academic survey about individual decision making and beliefs.',
     'frame_height': 500,
     'preview_template': 'global/MTurkPreview.html',
-    'minutes_allotted_per_assignment': 60,
-    'expiration_hours': 7*24,  # 7 days
-    # 'grant_qualification_id': 'YOUR_QUALIFICATION_ID_HERE',# to prevent retakes
+    'minutes_allotted_per_assignment': 180,
+    'expiration_hours': 412,  
+    'grant_qualification_id': '30TX348SI438D3WS0PXOC80LXMP85Y',# to prevent retakes
     'qualification_requirements': [
-        # qualification.LocaleRequirement("EqualTo", "US"),
-        # qualification.PercentAssignmentsApprovedRequirement("GreaterThanOrEqualTo", 50),
-        # qualification.NumberHitsApprovedRequirement("GreaterThanOrEqualTo", 5),
-        # qualification.Requirement('YOUR_QUALIFICATION_ID_HERE', 'DoesNotExist')
+         qualification.LocaleRequirement("EqualTo", "US"),
+         qualification.PercentAssignmentsApprovedRequirement("GreaterThanOrEqualTo", 99),
+         qualification.Requirement('30TX348SI438D3WS0PXOC80LXMP85Y', 'DoesNotExist')
     ]
 }
 
@@ -114,7 +113,7 @@ SESSION_CONFIGS = [
      'name': 'UpdatingOnAbility',
      'display_name': 'Experiment1',
      'num_demo_participants': 10,
-     'app_sequence': ['updatingOnAbility_tests'],
+     'app_sequence': ['updatingOnAbility_tests', 'updatingOnAbility_updating'],
      }
 ]
 
