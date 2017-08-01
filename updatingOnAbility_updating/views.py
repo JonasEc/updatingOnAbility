@@ -4,6 +4,7 @@ from ._builtin import Page, WaitPage
 from .models import Constants
 import numpy as np
 
+
 class prior(Page):
 	form_model = models.Player
 	form_fields = ['prior']
@@ -11,6 +12,7 @@ class prior(Page):
 		return self.round_number == 1
 	def before_next_page(self):
 		self.player.participant.vars['previous_belief'] = self.player.prior   # CUSTOMIZE THIS
+
 
 class info1(Page):
 	form_model = models.Player
@@ -54,6 +56,7 @@ class posterior(Page):
 		return {'info_select': Constants.NameDict[self.player.info_select], 'signal_good': self.player.signal_good, 'previous_belief': self.player.participant.vars['previous_belief']}
 	def before_next_page(self):
 		self.player.participant.vars['previous_belief'] = self.player.posterior  # CUSTOMIZE THIS
+
 
 page_sequence = [
 	prior,
