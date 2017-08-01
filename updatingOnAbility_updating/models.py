@@ -95,7 +95,7 @@ class Player(BasePlayer):
 	# first check if garp violation
 		if np.all(matrix == [[True, False, False], [False, True, False],[False, False, True]]):
 			self.intransitive = 1
-			max2 =  random.choice(["Certain", "Imperfect", "NoInfo"])\
+			max2 =  random.choice(["Certain", "Imperfect", "NoInfo"])
 	# if not find second element
 		else:
 			self.intransitive = 0
