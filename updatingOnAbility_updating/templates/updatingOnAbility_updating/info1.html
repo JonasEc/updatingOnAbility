@@ -1,5 +1,6 @@
 {% extends "global/Base.html" %}
 {% load staticfiles otree_tags %}
+{% load app_filters %}
 
 
 {% block title %}
@@ -30,7 +31,7 @@ Choice Information Structure
                            value="right" data-amount="{{ amount|json }}" required>
                 </td>
                 <td align="left">
-                    <b>You {% if amount < 0 %} lose {% else %} receive {% endif %}{{ amount }} </b> and see a draw from {{right_side}}  </td>
+                    You {% if amount < 0 %} lose {% else %} receive {% endif %}{{ amount | negate }} and see a draw from <b>{{right_side}} </b>  </td>
             </tr>
         {% endfor %}
     </table>
@@ -53,7 +54,7 @@ $(document).ready(function () {
             function () {
                 var clickedRadio = this;
                 var afterClickedRadio = false;
-                var clickedNumber = 1000;
+                var clickedNumber = 100;
 
                 var radios = document.querySelectorAll('input[type=radio]');
 
@@ -83,14 +84,13 @@ $(document).ready(function () {
     $('#otree-next-button').click(function() {
         var radios = document.querySelectorAll('input[type=radio]');
 
-
         for (i = 0; i < radios.length; ++i) {
             var radio = radios[i];
             if (radio.value == 'right' && radio.checked) {
-                $('#switchpoint').val(radio.dataset.amount);
+                $('#switchpoint').attr(value, radio.dataset.amount);
                 break;
             } else {
-                $('#switchpoint').val(9999);
+                $('#switchpoint').attr(value, 99444499);
             }
         }
     });

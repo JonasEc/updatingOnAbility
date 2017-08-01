@@ -4,6 +4,9 @@ from ._builtin import Page, WaitPage
 from .models import Constants
 import numpy as np
 
+
+
+
 class info1(Page):
 	form_model = models.Player
 	form_fields = ['CertainVSNoInfo']
@@ -43,7 +46,7 @@ class info5(Page):
 		rangeOver = np.concatenate((Constants.rangeRoughLower,Constants.rangeOverFine,Constants.rangeRoughUpper))
 		right_side_amounts =[c(rangeOver[k]) for k in range(len(rangeOver))]
 		max1, max2, intransitive = self.player.VariableChoiceChooser(self.player.CertainVSNoInfo, self.player.CertainVSImperfect, self.player.ImperfectVSNoInfo, self.player.Asym1VSAsym2)	
-		return {"left_side": Constants.NameDict(max1), "right_side": Constants.NameDict(max2), "right_side_amounts": right_side_amounts}	
+		return {"left_side": Constants.NameDict[max1], "right_side": Constants.NameDict[max2], "right_side_amounts": right_side_amounts}	
 
 page_sequence = [
 	info1,
