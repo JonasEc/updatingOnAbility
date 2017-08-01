@@ -1,0 +1,99 @@
+{% extends "global/Base.html" %}
+{% load staticfiles otree_tags %}
+
+
+{% block title %}
+Choice Information Structure 
+{% endblock %}
+
+{% block content %}
+
+    <table class="table table-striped">
+        <colgroup>
+            <col width="45%">
+            <col width="10%">
+            <col width="45%">
+        </colgroup>
+        <tr>
+            <td align="right"><b>Option A</b></td>
+            <td></td>
+            <td align="left"><b>Option B</b></td>
+        </tr>
+        {% for amount in right_side_amounts %}
+            <tr>
+                <td align="right">
+                    You see a draw from <b>{{left_side }}</b> </td>
+                <td align="middle">
+                    <input type="radio" name="amount_{{ amount|json }}" value="left"
+                           required>&nbsp;&nbsp;
+                    <input type="radio" name="amount_{{ amount|json }}"
+                           value="right" data-amount="{{ amount|json }}" required>
+                </td>
+                <td align="left">
+                    <b>You {% if amount < 0 %} lose {% else %} receive {% endif %}{{ amount }} </b> and see a draw from {{right_side}}  </td>
+            </tr>
+        {% endfor %}
+    </table>
+
+
+    {{ form.errors }}
+    <input type="hidden" name="ImperfectVSNoInfo" id="switchpoint"
+           value="9999">
+           
+    {% next_button %}
+
+
+{% endblock %}          
+
+
+{% block scripts %}
+<script>
+$(document).ready(function () {
+    $('input[type=radio]').change(
+            function () {
+                var clickedRadio = this;
+                var afterClickedRadio = false;
+                var clickedNumber = 100;
+
+                var radios = document.querySelectorAll('input[type=radio]');
+
+                for (i = 0; i < radios.length; ++i) {
+                    var radio = radios[i];
+                    if (radio == clickedRadio) {
+                        afterClickedRadio = true;
+                        continue;
+                    }
+                    if (!afterClickedRadio  && radio.value == 'True') {
+                        radio.checked = true;
+                    }
+                    if (afterClickedRadio && radio.value == 'False' ) {
+                        radio.checked = true;
+                    }
+                }
+                for (i = 0; i < radios.length; ++i) {
+                    var radio = radios[i];
+                    if (radio == clickedRadio) {
+                        radio.checked = true;
+                    }
+                }
+            }
+    );
+});
+
+    $('#otree-next-button').click(function() {
+        var radios = document.querySelectorAll('input[type=radio]');
+
+
+        for (i = 0; i < radios.length; ++i) {
+            var radio = radios[i];
+            if (radio.value == 'right' && radio.checked) {
+                $('#switchpoint').val(radio.dataset.amount);
+                break;
+            } else {
+                $('#switchpoint').val(9999);
+            }
+        }
+    });
+
+</script>
+{% endblock %}
