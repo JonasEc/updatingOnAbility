@@ -1,0 +1,34 @@
+{% extends "global/Page.html" %}
+{% load staticfiles otree_tags %}
+
+{% block title %}
+    Evaluate your performance.
+{% endblock %}
+
+{% block content %}
+
+<!--
+Documentation on how to write a django template here:
+https://docs.djangoproject.com/en/1.8/ref/templates/language/
+
+Bootstrap comes pre-loaded, so you can use any Bootstrap elements:
+http://getbootstrap.com/components/
+
+-->
+
+<p>How likely do you think that your performance in the MATH test is among the TOP 50% of your group?</p>
+    <div class="input-group">
+        {{ form.prior}}<span class="input-group-addon">%</span>
+    </div>
+
+    {% next_button %}
+
+{% endblock %}
+
+{% block styles %}
+    <style media="screen">
+      .input-group {
+        max-width: 50px;
+      }
+    </style>
+{% endblock %}

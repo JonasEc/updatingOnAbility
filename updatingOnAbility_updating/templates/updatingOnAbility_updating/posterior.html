@@ -1,0 +1,38 @@
+{% extends "global/Page.html" %}
+{% load staticfiles otree_tags %}
+
+{% block title %}
+    Evaluate your performance.
+{% endblock %}
+
+{% block content %}
+
+<!--
+Documentation on how to write a django template here:
+https://docs.djangoproject.com/en/1.8/ref/templates/language/
+
+Bootstrap comes pre-loaded, so you can use any Bootstrap elements:
+http://getbootstrap.com/components/
+
+-->
+<p>You last guessed that it was {{previous_belief}}% likely that your performance in the MATH test was among the TOP 50% of your group.</p>
+
+<p>In this round, the computer chose {{info_select}}. The signal you get is {% if signal_good == 1%} good {% else %} bad{% endif %}.</p>
+
+<p>Now that you know the color of the ball drawn, how likely do you think that your performance in the MATH test was among the TOP 50% of your group?</p>
+    <div class="input-group">
+        {{ form.posterior}}<span class="input-group-addon">%</span>
+    </div>
+
+
+    {% next_button %}
+
+{% endblock %}
+
+{% block styles %}
+    <style media="screen">
+      .input-group {
+        max-width: 50px;
+      }
+    </style>
+{% endblock %}
