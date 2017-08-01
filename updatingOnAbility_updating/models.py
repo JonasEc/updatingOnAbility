@@ -77,7 +77,7 @@ class Player(BasePlayer):
 
 	def VariableChoiceChooser(self, CertainVSNoInfo, CertainVSImperfect, ImperfectVSNoInfo, Asym1VSAsym2):
 		if Asym1VSAsym2 > c(0): # then Asym1 is preferred over Asym2
-			max1 = "Asym2"
+			max1 = "Asym1"
 		elif Asym1VSAsym2 < c(0): 
 			max1 = "Asym1"
 		else: 
@@ -95,9 +95,9 @@ class Player(BasePlayer):
 	# if not find second element
 		else:
 			intransitive = 0
-			if np.all(A[1] == [False, True, True]):
+			if np.all(A[0] == [False, True, True]):
 				max2 = "Certain"
-			elif np.all(A[2] == [True, False, True]):
+			elif np.all(A[1] == [True, False, True]):
 				max2 = "NoInfo"
 			else:
 				max2 = "Imperfect"

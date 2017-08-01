@@ -81,16 +81,17 @@ $(document).ready(function () {
     );
 });
 
-    $('#otree-next-button').click(function() {
+    $('button').click(function() {
         var radios = document.querySelectorAll('input[type=radio]');
+
 
         for (i = 0; i < radios.length; ++i) {
             var radio = radios[i];
             if (radio.value == 'right' && radio.checked) {
-                $('#switchpoint').attr(value, radio.dataset.amount);
+                $('#switchpoint').val(radio.dataset.amount);
                 break;
             } else {
-                $('#switchpoint').attr(value, 99444499);
+                $('#switchpoint').val(9999);
             }
         }
     });
