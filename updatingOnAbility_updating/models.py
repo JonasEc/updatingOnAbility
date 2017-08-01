@@ -28,20 +28,10 @@ class Constants(BaseConstants):
 	NameDict = {"Certain": "Fully informative urns", "Imperfect": "Partially informative urns", "NoInfo": "Uninformative urns", "Asym1": "Positively Skewed urns", "Asym2": "Negatively Skewed urns"}
 
 	# Here i choose the range for elicitation:
-	maxUpper = 2
-	fineUpper = 0.75
+	maxUpper = c(2)
+	stepsize = c(0.05)
 	maxLower = -maxUpper
-	fineLower = -fineUpper
-	steps = 11
-	steps2 = 6
-	stepsize = (maxUpper - fineUpper)/(steps2 - 1)
-	rangeOverFine = np.linspace(fineLower, fineUpper, steps, endpoint = True)
-	rangeRoughLower = np.linspace(maxLower, fineLower - stepsize, (steps2-1), endpoint = True)
-	rangeRoughUpper = np.linspace(fineUpper + stepsize, maxUpper, (steps2-1), endpoint = True)
-	rangeOver = np.concatenate((rangeRoughLower, rangeOverFine, rangeRoughUpper))
-	right_side_amounts = []
-	for k in range(len(rangeOver)):
-		right_side_amounts.append(c(rangeOver[k]))
+
 
 	# Here I set the probs of implementing each comparision between info structures
 	probInfo = [.1, .2, .2, .3, .2]
@@ -64,50 +54,50 @@ class Player(BasePlayer):
 	#### Demand for	:
 
 	# Here, I make four pairwise comparison choice variables that capture the elicited willingness to pay that will always be displayed
-	CertainVSNoInfo    = models.CurrencyField()
-	CertainVSImperfect = models.CurrencyField()
-	ImperfectVSNoInfo  = models.CurrencyField()
-	Asym1VSAsym2       = models.CurrencyField()
+	CertainVSNoInfo    = models.CurrencyField(widget = widgets.SliderInput(attrs={'step': str(Constants.stepsize)}), min = Constants.maxLower, max = Constants.maxUpper)
+	CertainVSImperfect = models.CurrencyField(widget = widgets.SliderInput(attrs={'step': str(Constants.stepsize)}), min = Constants.maxLower, max = Constants.maxUpper)
+	ImperfectVSNoInfo  = models.CurrencyField(widget = widgets.SliderInput(attrs={'step': str(Constants.stepsize)}), min = Constants.maxLower, max = Constants.maxUpper)
+	Asym1VSAsym2       = models.CurrencyField(widget = widgets.SliderInput(attrs={'step': str(Constants.stepsize)}), min = Constants.maxLower, max = Constants.maxUpper)
 	
 	# Next, the variable choice
 	VarLeft = models.CharField()
 	VarRight = models.CharField()
-	VarChoice = models.CurrencyField()
+	VarChoice = models.CurrencyField(widget = widgets.SliderInput(attrs={'step': str(Constants.stepsize)}), min = Constants.maxLower, max = Constants.maxUpper)
 
 	# these work as follows: random Value between maxLower and maxUpper. If Value is above choice of player, implement RightHandSide info structure and give player +Value payoff. 
 	# Otherwise give player LHS info structure and no change to payment. Lottery is between LHS and RHS+PaymentAmount
 	# ie: default is LHS, payment/deduction is to get/avoid RHS.
 	intransitive = models.BooleanField()
 
-	def VariableChoiceChooser(self, CertainVSNoInfo, CertainVSImperfect, ImperfectVSNoInfo, Asym1VSAsym2):
-		if Asym1VSAsym2 > c(0): # then Asym1 is preferred over Asym2
-			max1 = "Asym1"
-		elif Asym1VSAsym2 < c(0): 
-			max1 = "Asym1"
-		else: 
-			max1 = random.choice(["Asym1", "Asym2"])
+	# def VariableChoiceChooser(self, CertainVSNoInfo, CertainVSImperfect, ImperfectVSNoInfo, Asym1VSAsym2):
+	# 	if Asym1VSAsym2 > c(0): # then Asym1 is preferred over Asym2
+	# 		max1 = "Asym1"
+	# 	elif Asym1VSAsym2 < c(0): 
+	# 		max1 = "Asym1"
+	# 	else: 
+	# 		max1 = random.choice(["Asym1", "Asym2"])
 
 		
-		A = ( (False, CertainVSNoInfo >= 0, CertainVSImperfect >= 0), (CertainVSNoInfo  <= 0, False, ImperfectVSNoInfo <= 0), (CertainVSImperfect <= 0, ImperfectVSNoInfo >= 0, False))
-		A = np.array(A)
-		matrix = np.dot(A,np.dot(A,A))
+	# 	A = ( (False, CertainVSNoInfo >= 0, CertainVSImperfect >= 0), (CertainVSNoInfo  <= 0, False, ImperfectVSNoInfo <= 0), (CertainVSImperfect <= 0, ImperfectVSNoInfo >= 0, False))
+	# 	A = np.array(A)
+	# 	matrix = np.dot(A,np.dot(A,A))
 	
-	# first check if garp violation
-		if np.all(matrix == [[True, False, False], [False, True, False],[False, False, True]]):
-			self.intransitive = 1
-			max2 =  random.choice(["Certain", "Imperfect", "NoInfo"])
-	# if not find second element
-		else:
-			self.intransitive = 0
-			if np.all(A[0] == [False, True, True]):
-				max2 = "Certain"
-			elif np.all(A[1] == [True, False, True]):
-				max2 = "NoInfo"
-			else:
-				max2 = "Imperfect"
-	# record the LHS and RHS of the variable choice
-		self.VarLeft = max1
-		self.VarRight = max2
+	# # first check if garp violation
+	# 	if np.all(matrix == [[True, False, False], [False, True, False],[False, False, True]]):
+	# 		self.intransitive = 1
+	# 		max2 =  random.choice(["Certain", "Imperfect", "NoInfo"])
+	# # if not find second element
+	# 	else:
+	# 		self.intransitive = 0
+	# 		if np.all(A[0] == [False, True, True]):
+	# 			max2 = "Certain"
+	# 		elif np.all(A[1] == [True, False, True]):
+	# 			max2 = "NoInfo"
+	# 		else:
+	# 			max2 = "Imperfect"
+	# # record the LHS and RHS of the variable choice
+	# 	self.VarLeft = max1
+	# 	self.VarRight = max2
 
 
 	def ImplementSignal(self):
