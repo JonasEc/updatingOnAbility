@@ -1,0 +1,141 @@
+
+{% extends "global/Base.html" %}
+{% load staticfiles otree_tags %}
+{% load app_filters %}
+
+
+{% block title %}
+Practice with Signals and Advisors
+{% endblock %}
+
+{% block content %}
+<p> On this page you can follow directly how the information you will see later is created! </p>
+
+<p> Below, you see ten advisors - five clever advisors 🎓 (that always tell the truth), three silly optimistic advisors 😜 (that always send a positive signal 😃), and two silly pessimistic advisors 😱 (that always give a bad signal ☹). Recall that the clever advisors will look at the true state of affairs (here we <b> show </b> you what that is below -- we won't do this later on!) and then send a signal that is the same as the state. In other words, they tell the truth. The two silly advisors do not tell the truth. They simply always send a good signal if they are optimistic and the bad signal if they are pessimistic. </p>
+
+<p> When you click on the "Try it out!" button, one of the advisors will be randomly selected and will then send a signal.  </p>
+
+<p> On this page we will show you which advisor was selected and what they say. In latter parts of the experiment, we will <b> not </b> show you what type of advisor was selected. We do this here so that you can practice your understanding of how signals are created.
+</p>
+
+
+ <p>
+   <font size="6">🎓 🎓 🎓 🎓 🎓</font> 
+ </p>
+  <p>
+   <font size="6">😜 😜 😜 😱 😱</font> 
+ </p>
+ 
+<button type="button"  id = "doButton">
+Try it out!
+</button>
+
+<p>
+ The true state of affairs is: <b id ="good"> good </b> <b id ="bad"> bad </b>  
+</p>
+
+<p> Your advisor in round <a id="roundNum1"> </a> is
+<font size="6" id = "clever" >🎓 </font> <font size="6" id = "sillyopt" >😜 </font> <font size="6" id = "sillypess" >😱 </font>
+</p>
+
+<p>
+ Your signal in round <a id="roundNum2"> </a> is hence:  <font size="6" id = "goodSig" >😃 </font>  <font size="6" id = "badSig" >☹ </font> 
+</p>
+
+<button id = "nextbutton">
+Next
+</button>
+
+
+
+
+{% endblock %}          
+
+
+{% block scripts %}
+<script>
+
+
+
+
+var q = 0 
+var p = 0
+var z = 1
+var state = "good"
+
+function startfunc() {
+    $('#nextbutton').hide();
+    $('#clever').hide();
+    $('#sillyopt').hide();
+    $('#sillypess').hide();
+    $('#bad').hide();
+    $('#goodSig').hide();
+    $('#badSig').hide();
+}
+
+function nextclick() {
+    $('#clever').hide();
+    $('#sillyopt').hide();
+    $('#sillypess').hide();
+    $('#goodSig').hide();
+    $('#badSig').hide();
+      
+    var x = Math.random()
+    q++
+    p++ 
+    
+    if (q > 6) {
+    $('#nextbutton').show();
+        }
+    
+    if (p % 5 == 0) {
+    z ++
+        if ( z % 2 == 0) {
+            state = "bad"
+            $('#good').hide();
+            $('#bad').show();
+            }
+      else {
+            state = "good"
+            $('#good').show();
+            $('#bad').hide();      
+      }
+    }
+    
+    if (x < 0.5 && state == "bad") { 
+         $('#clever').show();
+         $('#badSig').show();
+    }
+    else if (x < 0.5 && state == "good") { 
+          $('#clever').show();
+          $('#goodSig').show();
+    }
+    
+    if (x >= 0.5 && x < 0.8) {
+      $('#sillyopt').show();
+        $('#goodSig').show();      
+    }
+    else if (x >= 0.8) {
+        $('#sillypess').show();
+        $('#badSig').show();      
+    }
+
+    roundNum1 = document.getElementById('roundNum1');
+    roundNum1.innerHTML = q;
+    roundNum2 = document.getElementById('roundNum2');
+    roundNum2.innerHTML = q;
+
+}
+    
+ 
+    
+// initialise
+startfunc()
+
+$('#doButton').click(nextclick) 
+
+
+
+
+</script>
+{% endblock %}
