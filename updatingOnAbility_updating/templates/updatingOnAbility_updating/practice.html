@@ -34,13 +34,15 @@ Try it out!
  The true state of affairs is: <b id ="good"> good </b> <b id ="bad"> bad </b>  
 </p>
 
-<p> Your advisor in round <a id="roundNum1"> </a> is
+<p> Your advisor in round <span id="roundNum1"> </span> is
 <font size="6" id = "clever" >🎓 </font> <font size="6" id = "sillyopt" >😜 </font> <font size="6" id = "sillypess" >😱 </font>
 </p>
 
 <p>
- Your signal in round <a id="roundNum2"> </a> is hence:  <font size="6" id = "goodSig" >😃 </font>  <font size="6" id = "badSig" >☹ </font> 
+ Your signal in round <span id="roundNum2"> </span> is hence:  <font size="6" id = "goodSig" >😃 </font>  <font size="6" id = "badSig" >☹ </font> 
 </p>
+
+<p> <span id= "expltext"></span> </p>
 
 <button id = "nextbutton">
 Next
@@ -83,7 +85,9 @@ function nextclick() {
     var x = Math.random()
     q++
     p++ 
-    
+ 
+    expltext = document.getElementById('expltext');
+
     if (q > 6) {
     $('#nextbutton').show();
         }
@@ -105,27 +109,44 @@ function nextclick() {
     if (x < 0.5 && state == "bad") { 
          $('#clever').show();
          $('#badSig').show();
+         expltext.innerHTML = "As you can see, your signal was the same as the true state. This is the case because you drew a clever advisor!";
     }
     else if (x < 0.5 && state == "good") { 
           $('#clever').show();
           $('#goodSig').show();
+          expltext.innerHTML = "As you can see, your signal was the same as the true state. This is the case because you drew a clever advisor!";
     }
     
     if (x >= 0.5 && x < 0.8) {
       $('#sillyopt').show();
-        $('#goodSig').show();      
+      $('#goodSig').show(); 
+      if (state == "good") {
+        expltext.innerHTML = "As you can see, your signal was the same as the true state, despite your adisor not being a clever one. Your optimistic advisor simply got luckly this time!";
+      }
+      else {
+        expltext.innerHTML = "As you can see, your signal was <b>not</b> the same as the true state because your advisor was optimistic but the state was bad!";
+      }
     }
     else if (x >= 0.8) {
         $('#sillypess').show();
-        $('#badSig').show();      
-    }
+        $('#badSig').show(); 
+      if (state == "bad") {
+        expltext.innerHTML = "As you can see, your signal was the same as the true state, despite your adisor not being a clever one. Your pessimistic advisor simply got luckly this time!";
+      }
+      else {
+        expltext.innerHTML = "As you can see, your signal was <b>not</b> the same as the true state because your advisor was pessimistic but the state was good!";
+      }
+    }  
+}
 
     roundNum1 = document.getElementById('roundNum1');
     roundNum1.innerHTML = q;
     roundNum2 = document.getElementById('roundNum2');
     roundNum2.innerHTML = q;
 
-}
+
+
+
     
  
     
