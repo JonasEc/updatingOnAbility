@@ -1,0 +1,58 @@
+
+{% extends "global/Base.html" %}
+{% load staticfiles otree_tags %}
+{% load app_filters %}
+
+
+{% block title %}
+Slider
+{% endblock %}
+
+{% block content %}
+
+<h2>Single value slider</h2>
+<input id="ex4" type="text"  data-slider-ticks-snap-bounds="30" />
+
+
+
+
+{% endblock %}          
+
+
+{% block scripts %}
+<!--<script type='text/javascript' src="{% static 'dependencies/js/jquery.min.js' %}"></script>-->
+<link href="{% static 'updatingOnAbility_updating/slider/dist/css/bootstrap-slider.css' %}" rel="stylesheet" type="text/css">
+<!--<link href="{% static 'updatingOnAbility_updating/slider/dist/css/bootstrap.min.css' %}" rel="stylesheet">-->
+<script type = 'text/javascript' src="{% static 'updatingOnAbility_updating/slider/dist/bootstrap-slider.js' %}" ></script>
+<!--<script type='text/javascript' src="{% static 'updatingOnAbility_updating/slider/dependencies/js/highlight.min.js' %}"></script>-->
+
+<script>
+$('#ex1').slider({
+	formatter: function(value) {
+		return 'Current value: ' + value;
+	}
+});
+
+//var labels = ['$0', '$100', '$200', '$300', '$400']
+var tick = [0, 100, 200, 300, 400]
+
+$("#ex4").slider({
+    ticks: tick,
+    ticks_labels: labels,
+    ticks_snap_bounds: 30,
+  }
+);
+
+
+var labels = $("#ex4").slider().on('slide',  function() {
+    var l = ['2', '$100', '$200', '$300', '$400']
+    return l
+}).data('slider')
+
+</script>
+
+<style> #ex1Slider .slider-selection {
+	background: #BABABA;
+}</style>
+
+{% endblock %}
