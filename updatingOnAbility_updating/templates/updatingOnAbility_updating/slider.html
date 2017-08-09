@@ -1,0 +1,55 @@
+
+{% extends "global/Base.html" %}
+{% load staticfiles otree_tags %}
+{% load app_filters %}
+
+
+{% block title %}
+Slider
+{% endblock %}
+
+{% block content %}
+
+<h2>Single value slider</h2>
+<input id="ex4" type="text" />
+
+
+{% endblock %}          
+
+
+{% block scripts %}
+<!--<script type='text/javascript' src="{% static 'dependencies/js/jquery.min.js' %}"></script>-->
+<link href="{% static 'updatingOnAbility_updating/slider/dist/css/bootstrap-slider.css' %}" rel="stylesheet" type="text/css">
+<!--<link href="{% static 'updatingOnAbility_updating/slider/dist/css/bootstrap.min.css' %}" rel="stylesheet">-->
+<script type = 'text/javascript' src="{% static 'updatingOnAbility_updating/slider/dist/bootstrap-slider.js' %}" ></script>
+<!--<script type='text/javascript' src="{% static 'updatingOnAbility_updating/slider/dependencies/js/highlight.min.js' %}"></script>-->
+
+<script>
+
+var labels = ['$0', '$100', '$200', '$300', '$400'];
+var tick = [0, 100, 200, 300, 400];
+
+var ex4Slider = $("#ex4").slider({
+    ticks: tick,
+    ticks_labels: labels,
+  }
+);
+
+ex4Slider.slider().on('slideStop',  function() {
+    var val = ex4Slider.slider('getValue')
+    ex4Slider.slider('setAttribute', 'ticks', [7, 100,200, 250, 290]) 
+    ex4Slider.slider('refresh') 
+    ex4Slider.slider('setAttribute', 'ticks_labels', ['', '','2', '2', '2']) 
+    ex4Slider.slider('refresh') 
+    ex4Slider.slider('setValue', val)
+});
+
+
+
+</script>
+
+<style> #ex1Slider .slider-selection {
+	background: #BABABA;
+}</style>
+
+{% endblock %}

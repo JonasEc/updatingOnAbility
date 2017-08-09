@@ -4,9 +4,12 @@ from ._builtin import Page, WaitPage
 from .models import Constants
 import numpy as np
 
+class slider(Page):
+	pass
+
 class practice(Page):
 	pass
-	
+
 class prior(Page):
 	form_model = models.Player
 	form_fields = ['prior']
@@ -61,6 +64,7 @@ class posterior(Page):
 
 
 page_sequence = [
+	slider,
 	practice,
 	prior,
 	info1,
@@ -70,4 +74,3 @@ page_sequence = [
 	info5,
 	posterior,
 ]
-
