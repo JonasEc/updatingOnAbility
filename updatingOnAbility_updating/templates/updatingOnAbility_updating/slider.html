@@ -11,9 +11,7 @@ Slider
 {% block content %}
 
 <h2>Single value slider</h2>
-<input id="ex4" type="text"  data-slider-ticks-snap-bounds="30" />
-
-
+<input id="ex4" type="text" />
 
 
 {% endblock %}          
@@ -27,27 +25,24 @@ Slider
 <!--<script type='text/javascript' src="{% static 'updatingOnAbility_updating/slider/dependencies/js/highlight.min.js' %}"></script>-->
 
 <script>
-$('#ex1').slider({
-	formatter: function(value) {
-		return 'Current value: ' + value;
-	}
-});
 
-//var labels = ['$0', '$100', '$200', '$300', '$400']
-var tick = [0, 100, 200, 300, 400]
+var labels = ['$0', '$100', '$200', '$300', '$400'];
+var tick = [0, 100, 200, 300, 400];
 
-$("#ex4").slider({
+var ex4Slider = $("#ex4").slider({
     ticks: tick,
     ticks_labels: labels,
-    ticks_snap_bounds: 30,
   }
 );
 
+ex4Slider.slider().on('slideStop',  function() {
+    var val = ex4Slider.slider('getValue')
+    ex4Slider.slider('setAttribute', 'ticks_labels', ['2', '2','2', '2', '2']) 
+    ex4Slider.slider('refresh') 
+    ex4Slider.slider('setValue', val)
+});
 
-var labels = $("#ex4").slider().on('slide',  function() {
-    var l = ['2', '$100', '$200', '$300', '$400']
-    return l
-}).data('slider')
+
 
 </script>
 
