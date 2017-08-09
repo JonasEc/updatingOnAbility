@@ -37,7 +37,9 @@ var ex4Slider = $("#ex4").slider({
 
 ex4Slider.slider().on('slideStop',  function() {
     var val = ex4Slider.slider('getValue')
-    ex4Slider.slider('setAttribute', 'ticks_labels', ['2', '2','2', '2', '2']) 
+    ex4Slider.slider('setAttribute', 'ticks', [7, 100,200, 250, 290]) 
+    ex4Slider.slider('refresh') 
+    ex4Slider.slider('setAttribute', 'ticks_labels', ['', '','2', '2', '2']) 
     ex4Slider.slider('refresh') 
     ex4Slider.slider('setValue', val)
 });
