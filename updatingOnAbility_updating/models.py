@@ -56,6 +56,8 @@ class Group(BaseGroup):
 
 
 class Player(BasePlayer):
+	trial = models.FloatField()
+
 	#### Update
 	prior = models.PositiveIntegerField(min=0, max=100)
 	posterior = models.PositiveIntegerField(min=0, max=100)
