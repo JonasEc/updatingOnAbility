@@ -5,8 +5,9 @@ from .models import Constants
 import numpy as np
 
 class slider(Page):
-	form_model = models.Player
-	form_fields = ['trial']
+	# form_model = models.Player
+	# form_fields = ['trial']
+	pass
 
 class practice(Page):
 	pass
