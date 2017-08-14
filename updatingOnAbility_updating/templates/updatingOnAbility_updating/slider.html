@@ -10,7 +10,7 @@ Slider
 
 {% block content %}
 
-<h2>Single value slider</h2>
+<h2>Tell us at what amount of money you are indifferent between the left-hand side information structure and the amount of money plus the information structure of the right-hand side</h2>
 <input id="ex4" type="text" />
 
 {% next_button %}
@@ -27,20 +27,30 @@ Slider
 
 <script>
 
-var labels = ['$0', '$100', '$200', '$300', '$400'];
-var tick = [0, 100, 200, 300, 400];
+var labelsO = ['$0', '$100', '$200', '$300', '$400'];
+var tickO = [0, 100, 200, 300, 400];
+var tickposO = tickO
+var di = tickO[tickO.length - 1] - tickO[tickO.length - 2] 
 
 var ex4Slider = $("#ex4").slider({
-    ticks: tick,
-    ticks_labels: labels,
+    ticks: tickO,
+    ticks_labels: labelsO,
+ /*   ticks_positions: tickposO,*/
   }
 );
 
 ex4Slider.slider().on('slideStop',  function() {
     var val = ex4Slider.slider('getValue')
-    ex4Slider.slider('setAttribute', 'ticks', [7, 100,200, 250, 290]) 
+    var li1 = [0, val]
+    var dist = tickO[tickO.length - 1] - val
+    var nu = Math.floor(dist/di)
+    var nuIt = Array.from(new Array(nu + 1), (x,i) => i)
+    alert(nuIt.toString())
+    var li2 = [for (k of nuIt) tickO[tickO.length - 1] - di*k  ]
+    ex4Slider.slider('setAttribute', 'ticks', li1.concat(li2)) 
+    /*ex4Slider.slider('setAttribute', 'ticks_positions', li1.concat(li2)) */
     ex4Slider.slider('refresh') 
-    ex4Slider.slider('setAttribute', 'ticks_labels', ['', '','2', '2', '2']) 
+    ex4Slider.slider('setAttribute', 'ticks_labels', [for (a of li1.concat(li2)) a.toString()] ) 
     ex4Slider.slider('refresh') 
     ex4Slider.slider('setValue', val)
 });
@@ -49,8 +59,12 @@ ex4Slider.slider().on('slideStop',  function() {
 
 </script>
 
-<style> #ex1Slider .slider-selection {
-	background: #BABABA;
-}</style>
+<style type="text/css"> 
+#ex4 {
+    width: 1000px;
+    height: 400px;
+}
+
+</style>
 
 {% endblock %}
