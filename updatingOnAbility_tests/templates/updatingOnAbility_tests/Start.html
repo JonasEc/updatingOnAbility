@@ -1,0 +1,13 @@
+{% extends "global/Page.html" %}
+{% load staticfiles otree_tags %}
+
+{% block title %}
+    Are you ready?
+{% endblock %}
+
+{% block content %}
+    Click "Next" when you are ready to take the test. You will have {{Constants.test_minutes}} mins to answer as many questions as possible.
+
+    {% next_button %}
+
+{% endblock %}
