@@ -1,0 +1,67 @@
+{% extends "global/Page.html" %}
+{% load staticfiles otree_tags %}
+
+{% block title %}
+    Consultant firms
+{% endblock %}
+
+{% block content %}
+
+<!--
+Documentation on how to write a django template here:
+https://docs.djangoproject.com/en/1.8/ref/templates/language/
+
+Bootstrap comes pre-loaded, so you can use any Bootstrap elements:
+http://getbootstrap.com/components/
+
+-->
+<div class="panel-group" id="accordion">
+    <div class="panel panel-warning" id="panel1">
+        <div class="panel-heading">
+             <h4 class="panel-title">
+        <a data-toggle="collapse" data-target="#collapseOne" class="btn-block" href="#collapseOne">
+            Three types of consultants -- Click to collapse
+        </a>
+      </h4>
+
+        </div>
+        <div id="collapseOne" class="panel-collapse collapse in" data-toggle="false">
+            <div class="panel-body">
+
+                {% include "updatingOnAbility_updating/consultants.html"%}
+
+            </div>
+        </div>
+    </div>
+</div>
+
+<p>Firm 1 (🎓🎓🎓🎓🎓🎓🎓🎓🎓🎓) consists of 10 <b>diligent</b> consultants. Therefore, their report is always truthful.</p>
+<p>Firm 3 (🎓🎓🎓🎓🎓🎓🎓🎓😜😱) consists of 8 <b>diligent</b> consultants, 1 <b>silly optimistic</b> consultant and 1 <b>silly pessimistic</b> consultant. Therefore, a positive report may either come from a diligent consultant or a silly optimistic consultant. Similarly, a negative report may either come from a diligent consultant or a silly pessimistic consultant.</p>
+
+
+<p>Suppose Firm 3 is hired and you receive a <b>positive</b> report from them, then how likely do you think that your Math score is among the top {{Constants.percentile}}%?</p>
+        <div class="input-group">
+            {{ form.Imperfect_good }}<span class="input-group-addon">%</span>
+        </div>
+
+<p>Suppose Firm 3 is hired and you receive a <b>negative</b> report from them, then how likely do you think that your Math score is among the top {{Constants.percentile}}%?</p>
+        <div class="input-group">
+            {{ form.Imperfect_bad }}<span class="input-group-addon">%</span>
+        </div>
+
+<p>For the following pairs of choices, please choose the option that you prefer. One of the pairs may be randomly selected and your choice in that pair will be implemented.</p>
+
+
+<p><b>Remember that a consultant will be randomly picked from the hired firm to report to you and you won't know which type he is.</b></p>
+{% formfield player.CertainVSImperfect %}
+    {% next_button %}
+
+{% endblock %}
+
+{% block styles %}
+    <style media="screen">
+      .input-group {
+        max-width: 50px;
+      }
+    </style>
+{% endblock %}

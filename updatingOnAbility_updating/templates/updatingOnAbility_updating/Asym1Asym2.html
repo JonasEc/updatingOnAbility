@@ -1,0 +1,80 @@
+{% extends "global/Page.html" %}
+{% load staticfiles otree_tags %}
+
+{% block title %}
+    Consultant firms
+{% endblock %}
+
+{% block content %}
+
+<!--
+Documentation on how to write a django template here:
+https://docs.djangoproject.com/en/1.8/ref/templates/language/
+
+Bootstrap comes pre-loaded, so you can use any Bootstrap elements:
+http://getbootstrap.com/components/
+
+-->
+<div class="panel-group" id="accordion">
+    <div class="panel panel-warning" id="panel1">
+        <div class="panel-heading">
+             <h4 class="panel-title">
+        <a data-toggle="collapse" data-target="#collapseOne" class="btn-block" href="#collapseOne">
+            Three types of consultants -- Click to collapse
+        </a>
+      </h4>
+
+        </div>
+        <div id="collapseOne" class="panel-collapse collapse in" data-toggle="false">
+            <div class="panel-body">
+
+                {% include "updatingOnAbility_updating/consultants.html"%}
+
+            </div>
+        </div>
+    </div>
+</div>
+
+<p>Firm 4 (🎓🎓🎓🎓🎓🎓😜😜😜😱) consists of 6 <b>diligent</b> consultants, 3 <b>silly optimistic</b> consultants and 1 <b>silly pessimistic</b> consultant. </p>
+
+<p>Firm 5 (🎓🎓🎓🎓🎓🎓😜😱😱😱) consists of 6 <b>diligent</b> consultants, 1 <b>silly optimistic</b> consultant and 3 <b>silly pessimistic</b> consultants. </p>
+
+<p>For either of Firm 4 and Firm 5, a positive report may either be truthful or not, and a negative report may either be truthful or not. Firm 4 is more likely to generate a positive report than Firm 5, but a positive report coming from Firm 4 is less likely to be truthful than Firm 5.</p>
+
+<p>Suppose Firm 4 is hired and you receive a <b>positive</b> report from them, then how likely do you think that your Math score is among the top {{Constants.percentile}}%?</p>
+        <div class="input-group">
+            {{ form.Asym1_good }}<span class="input-group-addon">%</span>
+        </div>
+
+<p>Suppose Firm 4 is hired and you receive a <b>negative</b> report from them, then how likely do you think that your Math score is among the top {{Constants.percentile}}%?</p>
+        <div class="input-group">
+            {{ form.Asym1_bad }}<span class="input-group-addon">%</span>
+        </div>
+
+<p>Suppose Firm 5 is hired and you receive a <b>positive</b> report from them, then how likely do you think that your Math score is among the top {{Constants.percentile}}%?</p>
+        <div class="input-group">
+            {{ form.Asym2_good }}<span class="input-group-addon">%</span>
+        </div>
+
+<p>Suppose Firm 5 is hired and you receive a <b>negative</b> report from them, then how likely do you think that your Math score is among the top {{Constants.percentile}}%?</p>
+        <div class="input-group">
+            {{ form.Asym2_bad }}<span class="input-group-addon">%</span>
+        </div>
+
+<p>For the following pairs of choices, please choose the option that you prefer. One of the pairs may be randomly selected and your choice in that pair will be implemented.</p>
+
+
+<p><b>Remember that a consultant will be randomly picked from the hired firm to report to you and you won't know which type he is.</b></p>
+{% formfield player.Asym1VSAsym2 %}
+
+    {% next_button %}
+
+{% endblock %}
+
+{% block styles %}
+    <style media="screen">
+      .input-group {
+        max-width: 50px;
+      }
+    </style>
+{% endblock %}

@@ -17,12 +17,19 @@ Experiment to Test Updating on Ability
 class Constants(BaseConstants):
 	name_in_url = 'experiment2'
 	players_per_group = None
-	num_rounds = 4
+	#### Non-strategy method:
+	# num_rounds = 4
+	#### Strategy method:
+	num_rounds = 1
+
+	# Here I define the state space
+	quantile = 0.5
+	percentile = int(quantile * 100)
 
 	# Here I define the different information structures:
 
-	AccGood = {'Certain':1, 'Imperfect':0.85, 'NoInfo': 0.5, 'Asym1': 0.85, 'Asym2': 0.6}   # Prob(good signal|top)
-	AccBad = {'Certain':1, 'Imperfect':0.85, 'NoInfo': 0.5, 'Asym1': 0.6, 'Asym2': 0.85}   # Prob(bad signal|bottom)
+	AccGood = {'Certain':1, 'Imperfect':0.9, 'NoInfo': 0.5, 'Asym1': 0.9, 'Asym2': 0.7}   # Prob(good signal|top)
+	AccBad = {'Certain':1, 'Imperfect':0.9, 'NoInfo': 0.5, 'Asym1': 0.7, 'Asym2': 0.9}   # Prob(bad signal|bottom)
 
 	# Next I define what these will be called in the templates
 	NameDict = {"Certain": "Fully informative urns", "Imperfect": "Partially informative urns", "NoInfo": "Uninformative urns", "Asym1": "Positively Skewed urns", "Asym2": "Negatively Skewed urns"}
@@ -30,7 +37,7 @@ class Constants(BaseConstants):
 	# Here i choose the range for elicitation:
 	maxUpper = 2
 	fineUpper = 0.75
-	maxLower = -maxUpper
+	maxLower = -maxUpper  ## YC's comment: might be good to make price always positive. I feel it easier to think about.
 	fineLower = -fineUpper
 	steps = 11
 	steps2 = 6
@@ -60,10 +67,19 @@ class Player(BasePlayer):
 
 	#### Update
 	prior = models.PositiveIntegerField(min=0, max=100)
-	posterior = models.PositiveIntegerField(min=0, max=100)
 	info_select = models.CharField()
 	signal_good = models.BooleanField()
-	#### Demand for	:
+	## posterior: Non-strategy method
+	posterior = models.PositiveIntegerField(min=0, max=100)
+	## posteriors: Strategy method
+	Imperfect_good = models.PositiveIntegerField(min=0, max=100)
+	Imperfect_bad = models.PositiveIntegerField(min=0, max=100)
+	Asym1_good = models.PositiveIntegerField(min=0, max=100)
+	Asym1_bad = models.PositiveIntegerField(min=0, max=100)
+	Asym2_good = models.PositiveIntegerField(min=0, max=100)
+	Asym2_bad= models.PositiveIntegerField(min=0, max=100)
+
+	#### Demand for	info structures:
 
 	# Here, I make four pairwise comparison choice variables that capture the elicited willingness to pay that will always be displayed
 	CertainVSNoInfo    = models.CurrencyField()

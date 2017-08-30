@@ -1,0 +1,79 @@
+{% extends "global/Page.html" %}
+{% load staticfiles otree_tags %}
+
+{% block title %}
+    Consultant firms
+{% endblock %}
+
+{% block content %}
+
+<!--
+Documentation on how to write a django template here:
+https://docs.djangoproject.com/en/1.8/ref/templates/language/
+
+Bootstrap comes pre-loaded, so you can use any Bootstrap elements:
+http://getbootstrap.com/components/
+
+-->
+<div class="panel-group" id="accordion">
+    <div class="panel panel-warning" id="panel1">
+        <div class="panel-heading">
+             <h4 class="panel-title">
+        <a data-toggle="collapse" data-target="#collapseOne" class="btn-block" href="#collapseOne">
+            Three types of consultants -- Click to collapse
+        </a>
+      </h4>
+
+        </div>
+        <div id="collapseOne" class="panel-collapse collapse in" data-toggle="false">
+            <div class="panel-body">
+
+                {% include "updatingOnAbility_updating/consultants.html"%}
+
+            </div>
+        </div>
+    </div>
+</div>
+
+{% if firm1 %}
+<p>Firm 1 (🎓🎓🎓🎓🎓🎓🎓🎓🎓🎓) consists of 10 <b>diligent</b> consultants.</p>
+{% elif firm2 %}
+<p>Firm 2 (😜😜😜😜😜😱😱😱😱😱) consists of 5 <b>silly optimistic</b> consultants and 5 <b>silly pessimistic</b> consultants.</p>
+{% elif firm3 %}
+<p>Firm 3 (🎓🎓🎓🎓🎓🎓🎓🎓😜😱) consists of 8 <b>diligent</b> consultants, 1 <b>silly optimistic</b> consultant and 1 <b>silly pessimistic</b> consultant.</p>
+{% endif %}
+
+{% if firm4 %}
+<p>Firm 4 (🎓🎓🎓🎓🎓🎓😜😜😜😱) consists of 6 <b>diligent</b> consultants, 3 <b>silly optimistic</b> consultants and 1 <b>silly pessimistic</b> consultant. </p>
+{% elif firm5 %}
+<p>Firm 5 (🎓🎓🎓🎓🎓🎓😜😱😱😱) consists of 6 <b>diligent</b> consultants, 1 <b>silly optimistic</b> consultant and 3 <b>silly pessimistic</b> consultants. </p>
+{% endif %}
+
+{% if firm3 %}
+<p>You mentioned that if Firm 3's report were positive, you think there would be a {{player.Imperfect_good}}% chance that your Math score was among the top {{Constants.percentile}}%. And if Firm 3's report were negative, you think there would be a {{player.Imperfect_bad}}% chance that your Math score was among the top {{Constants.percentile}}%.</p>
+{% endif %}
+
+{% if firm4 %}
+<p>You mentioned that if Firm 4's report were positive, you think there would be a {{player.Asym1_good}}% chance that your Math score was among the top {{Constants.percentile}}%. And if Firm 4's report were negative, you think there would be a {{player.Asym1_bad}}% chance that your Math score was among the top {{Constants.percentile}}%.</p>
+{% endif %}
+
+{% if firm5 %}
+<p>You mentioned that if Firm 5's report were positive, you think there would be a {{player.Asym2_good}}% chance that your Math score was among the top {{Constants.percentile}}%. And if Firm 5's report were negative, you think there would be a {{player.Asym2_bad}}% chance that your Math score was among the top {{Constants.percentile}}%.</p>
+{% endif %}
+
+
+<p>For the following pairs of choices, please choose the option that you prefer. One of the pairs may be randomly selected and your choice in that pair will be implemented.</p>
+
+<p><b>Remember that a consultant will be randomly picked from the hired firm to report to you and you won't know which type he is.</b></p>
+{% formfield player.VarChoice %}
+    {% next_button %}
+
+{% endblock %}
+
+{% block styles %}
+    <style media="screen">
+      .input-group {
+        max-width: 50px;
+      }
+    </style>
+{% endblock %}

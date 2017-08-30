@@ -1,0 +1,27 @@
+{% extends "global/Page.html" %}
+{% load staticfiles otree_tags %}
+
+{% block title %}
+    Consultant firms.
+{% endblock %}
+
+{% block content %}
+
+<!--
+Documentation on how to write a django template here:
+https://docs.djangoproject.com/en/1.8/ref/templates/language/
+
+Bootstrap comes pre-loaded, so you can use any Bootstrap elements:
+http://getbootstrap.com/components/
+
+-->
+<p>In this part, there will be a consultant who will inform you about your performance in the Math test.</p>
+
+{% include "updatingOnAbility_updating/consultants.html" %}
+
+<p>We have allocated a fund of {{Constants.maxUpper}} for you to hire one of five consultant firms. Each firm has a different composition of the three types of consultants. If a firm is hired, one consultant from the hired firm will be <b>randomly</b> picked to make a report to you. Each consultant from the hired firm is equally likely to be picked. You will know which firm is hired, but you won't know which consultant is picked. After you pay the firm, all money left in the fund will be added to your bonus.</p>
+
+<p>In the next few pages, we will introduce you to the consultant team of each of the five firms and you will be asked to indicate your preference between certain pairs of firms.</p>
+    {% next_button %}
+
+{% endblock %}

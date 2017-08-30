@@ -1,0 +1,56 @@
+{% extends "global/Page.html" %}
+{% load staticfiles otree_tags %}
+
+{% block title %}
+    Consultant firms
+{% endblock %}
+
+{% block content %}
+
+<!--
+Documentation on how to write a django template here:
+https://docs.djangoproject.com/en/1.8/ref/templates/language/
+
+Bootstrap comes pre-loaded, so you can use any Bootstrap elements:
+http://getbootstrap.com/components/
+
+-->
+<div class="panel-group" id="accordion">
+    <div class="panel panel-warning" id="panel1">
+        <div class="panel-heading">
+             <h4 class="panel-title">
+        <a data-toggle="collapse" data-target="#collapseOne" class="btn-block" href="#collapseOne">
+            Three types of consultants -- Click to collapse
+        </a>
+      </h4>
+
+        </div>
+        <div id="collapseOne" class="panel-collapse collapse in" data-toggle="false">
+            <div class="panel-body">
+
+                {% include "updatingOnAbility_updating/consultants.html"%}
+
+            </div>
+        </div>
+    </div>
+</div>
+
+<p>Firm 1 (🎓🎓🎓🎓🎓🎓🎓🎓🎓🎓) consists of 10 <b>diligent</b> consultants. Therefore, their report is always truthful.</p>
+<p>Firm 2 (😜😜😜😜😜😱😱😱😱😱) consists of 5 <b>silly optimistic</b> consultants and 5 <b>silly pessimistic</b> consultants. Therefore, there report does not say anything about your true performance.</p>
+
+<p>For the following pairs of choices, please choose the option that you prefer. One of the pairs may be randomly selected and your choice in that pair will be implemented.</p>
+
+
+<p><b>Remember that a consultant will be randomly picked from the hired firm to report to you and you won't know which type he is.</b></p>
+{% formfield player.CertainVSNoInfo %}
+    {% next_button %}
+
+{% endblock %}
+
+{% block styles %}
+    <style media="screen">
+      .input-group {
+        max-width: 50px;
+      }
+    </style>
+{% endblock %}

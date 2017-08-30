@@ -45,5 +45,5 @@ page_sequence = [
 	# welcome,
 	# IRB,
 	Start,
-	Question,
+	# Question,
 ]
